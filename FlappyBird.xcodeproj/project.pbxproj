@@ -7,30 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		653BB0D325454ABF00A2AB2D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653BB0D225454ABF00A2AB2D /* GameScene.swift */; };
 		654DF7F8254457480086128D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7F7254457480086128D /* AppDelegate.swift */; };
 		654DF7FA254457480086128D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7F9254457480086128D /* SceneDelegate.swift */; };
 		654DF7FC254457480086128D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7FB254457480086128D /* ViewController.swift */; };
 		654DF7FF254457480086128D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654DF7FD254457480086128D /* Main.storyboard */; };
 		654DF8012544574D0086128D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 654DF8002544574D0086128D /* Assets.xcassets */; };
 		654DF8042544574D0086128D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 654DF8022544574D0086128D /* LaunchScreen.storyboard */; };
-		654DF80C25445A600086128D /* bird_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF80B25445A600086128D /* bird_a.png */; };
-		654DF80E25445A670086128D /* bird_a@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF80D25445A670086128D /* bird_a@2x.png */; };
-		654DF81025445A6D0086128D /* bird_a@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF80F25445A6D0086128D /* bird_a@3x.png */; };
-		654DF81225445A740086128D /* bird_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81125445A740086128D /* bird_b.png */; };
-		654DF81425445A7A0086128D /* bird_b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81325445A790086128D /* bird_b@2x.png */; };
-		654DF81625445A800086128D /* bird_b@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81525445A800086128D /* bird_b@3x.png */; };
-		654DF81825445A850086128D /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81725445A850086128D /* cloud.png */; };
-		654DF81A25445A8B0086128D /* cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81925445A8B0086128D /* cloud@2x.png */; };
-		654DF81C25445A900086128D /* cloud@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81B25445A900086128D /* cloud@3x.png */; };
-		654DF81E25445A950086128D /* ground.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81D25445A950086128D /* ground.png */; };
-		654DF82025445A9A0086128D /* ground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF81F25445A9A0086128D /* ground@2x.png */; };
-		654DF82225445A9F0086128D /* ground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF82125445A9F0086128D /* ground@3x.png */; };
-		654DF82425445AA40086128D /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF82325445AA40086128D /* wall.png */; };
-		654DF82625445AA90086128D /* wall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF82525445AA90086128D /* wall@2x.png */; };
-		654DF82825445AAF0086128D /* wall@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 654DF82725445AAF0086128D /* wall@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		653BB0D225454ABF00A2AB2D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = ../GameScene.swift; sourceTree = "<group>"; };
 		654DF7F4254457480086128D /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654DF7F7254457480086128D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		654DF7F9254457480086128D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,21 +26,6 @@
 		654DF8002544574D0086128D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		654DF8032544574D0086128D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		654DF8052544574D0086128D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		654DF80B25445A600086128D /* bird_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird_a.png; sourceTree = "<group>"; };
-		654DF80D25445A670086128D /* bird_a@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird_a@2x.png"; sourceTree = "<group>"; };
-		654DF80F25445A6D0086128D /* bird_a@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird_a@3x.png"; sourceTree = "<group>"; };
-		654DF81125445A740086128D /* bird_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird_b.png; sourceTree = "<group>"; };
-		654DF81325445A790086128D /* bird_b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird_b@2x.png"; sourceTree = "<group>"; };
-		654DF81525445A800086128D /* bird_b@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird_b@3x.png"; sourceTree = "<group>"; };
-		654DF81725445A850086128D /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
-		654DF81925445A8B0086128D /* cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud@2x.png"; sourceTree = "<group>"; };
-		654DF81B25445A900086128D /* cloud@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud@3x.png"; sourceTree = "<group>"; };
-		654DF81D25445A950086128D /* ground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground.png; sourceTree = "<group>"; };
-		654DF81F25445A9A0086128D /* ground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ground@2x.png"; sourceTree = "<group>"; };
-		654DF82125445A9F0086128D /* ground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ground@3x.png"; sourceTree = "<group>"; };
-		654DF82325445AA40086128D /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
-		654DF82525445AA90086128D /* wall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wall@2x.png"; sourceTree = "<group>"; };
-		654DF82725445AAF0086128D /* wall@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wall@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,22 +60,8 @@
 			children = (
 				654DF7F7254457480086128D /* AppDelegate.swift */,
 				654DF7F9254457480086128D /* SceneDelegate.swift */,
+				653BB0D225454ABF00A2AB2D /* GameScene.swift */,
 				654DF7FB254457480086128D /* ViewController.swift */,
-				654DF80B25445A600086128D /* bird_a.png */,
-				654DF80D25445A670086128D /* bird_a@2x.png */,
-				654DF80F25445A6D0086128D /* bird_a@3x.png */,
-				654DF81125445A740086128D /* bird_b.png */,
-				654DF81325445A790086128D /* bird_b@2x.png */,
-				654DF81525445A800086128D /* bird_b@3x.png */,
-				654DF81725445A850086128D /* cloud.png */,
-				654DF81925445A8B0086128D /* cloud@2x.png */,
-				654DF81B25445A900086128D /* cloud@3x.png */,
-				654DF81D25445A950086128D /* ground.png */,
-				654DF81F25445A9A0086128D /* ground@2x.png */,
-				654DF82125445A9F0086128D /* ground@3x.png */,
-				654DF82325445AA40086128D /* wall.png */,
-				654DF82525445AA90086128D /* wall@2x.png */,
-				654DF82725445AAF0086128D /* wall@3x.png */,
 				654DF7FD254457480086128D /* Main.storyboard */,
 				654DF8002544574D0086128D /* Assets.xcassets */,
 				654DF8022544574D0086128D /* LaunchScreen.storyboard */,
@@ -170,23 +128,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				654DF81025445A6D0086128D /* bird_a@3x.png in Resources */,
-				654DF82025445A9A0086128D /* ground@2x.png in Resources */,
-				654DF81225445A740086128D /* bird_b.png in Resources */,
 				654DF8042544574D0086128D /* LaunchScreen.storyboard in Resources */,
-				654DF82225445A9F0086128D /* ground@3x.png in Resources */,
 				654DF8012544574D0086128D /* Assets.xcassets in Resources */,
-				654DF81E25445A950086128D /* ground.png in Resources */,
-				654DF81425445A7A0086128D /* bird_b@2x.png in Resources */,
-				654DF81C25445A900086128D /* cloud@3x.png in Resources */,
-				654DF82825445AAF0086128D /* wall@3x.png in Resources */,
-				654DF81A25445A8B0086128D /* cloud@2x.png in Resources */,
-				654DF82625445AA90086128D /* wall@2x.png in Resources */,
-				654DF81825445A850086128D /* cloud.png in Resources */,
-				654DF82425445AA40086128D /* wall.png in Resources */,
-				654DF80E25445A670086128D /* bird_a@2x.png in Resources */,
-				654DF81625445A800086128D /* bird_b@3x.png in Resources */,
-				654DF80C25445A600086128D /* bird_a.png in Resources */,
 				654DF7FF254457480086128D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +143,7 @@
 			files = (
 				654DF7FC254457480086128D /* ViewController.swift in Sources */,
 				654DF7F8254457480086128D /* AppDelegate.swift in Sources */,
+				653BB0D325454ABF00A2AB2D /* GameScene.swift in Sources */,
 				654DF7FA254457480086128D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
