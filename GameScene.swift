@@ -231,6 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upper.size.width, height: self.frame.size.height))
             scoreNode.physicsBody?.isDynamic = false
             scoreNode.physicsBody?.categoryBitMask = self.scoreCategory
+            scoreNode.physicsBody?.categoryBitMask = self.gemCategory
             scoreNode.physicsBody?.contactTestBitMask = self.birdCategory
             
             wall.addChild(scoreNode)
