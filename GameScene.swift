@@ -291,7 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // スコア用の物体と衝突した
             print("ScoreUp")
             score += 1
-            
+//            print(score)
             // ベストスコア更新か確認する --- ここから ---
             var bestScore = userDefaults.integer(forKey: "BEST")
             if score > bestScore {
@@ -369,7 +369,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let scoreNode = SKNode()
             scoreNode.position = CGPoint(x: gemItem.size.width + birdSize.width / 2, y: self.frame.height / 2)
-            scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: gemItem.size.width, height: self.frame.size.height))
+            scoreNode.physicsBody = SKPhysicsBody(circleOfRadius: gemItem.size.height / 2)
             scoreNode.physicsBody?.isDynamic = false
             scoreNode.physicsBody?.categoryBitMask = self.gemCategory
             scoreNode.physicsBody?.contactTestBitMask = self.birdCategory
