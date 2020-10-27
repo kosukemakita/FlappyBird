@@ -14,6 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var scrollNode:SKNode!
     var wallNode:SKNode!
     var bird:SKSpriteNode!
+    var gemNode:SKNode!
     
     // 衝突判定カテゴリー ↓追加
     let birdCategory: UInt32 = 1 << 0       // 0...00001
@@ -45,11 +46,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // 壁用のノード
         wallNode = SKNode()
         scrollNode.addChild(wallNode)
+        
+        // 壁用のノード
+        gemNode = SKNode()
+        scrollNode.addChild(gemNode)
         // 各種スプライトを生成する処理をメソッドに分割
         setupGround()
         setupCloud()
         setupWall()
         setupBird()
+        setupGem()
         
         setupScoreLabel()
     }
@@ -151,10 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupWall() {
-        //アイテム作成のためのコード
-        let gemTexture = SKTexture(imageNamed: "gem")
-        let gemSize = SKTexture(imageNamed: "gem").size()
-    
+        
         // 壁の画像を読み込む
         let wallTexture = SKTexture(imageNamed: "wall")
         wallTexture.filteringMode = .linear
@@ -171,7 +174,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // 鳥が通り抜ける隙間の長さを鳥のサイズの3倍とする
         let slit_length = birdSize.height * 3
         
-        let gem_length = birdSize.height * 1.5
         // 隙間位置の上下の振れ幅を鳥のサイズの4倍とする
         let random_y_range = birdSize.height * 4
         // 下の壁のY軸下限位置(中央位置から下方向の最大振れ幅で下の壁を表示する位置)を計算
@@ -181,10 +183,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // 壁を生成するアクションを作成
         let createWallAnimation = SKAction.run({
-            //アイテム関連のノードを乗せるノードを作成
-            let gem = SKNode()
-            gem.position = CGPoint(x: self.frame.size.width + wallTexture.size().width / 2, y: 0)
-            gem.zPosition = -50 // 雲より手前、地面より奥
             // 壁関連のノードを乗せるノードを作成
             let wall = SKNode()
             wall.position = CGPoint(x: self.frame.size.width + wallTexture.size().width / 2, y: 0)
@@ -193,16 +191,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let random_y = CGFloat.random(in: 0..<random_y_range)
             // Y軸の下限にランダムな値を足して、下の壁のY座標を決定
             let under_wall_y = under_wall_lowest_y + random_y
-            let gem_y = under_wall_lowest_y + random_y + gem_length
-            
-            let gemItem = SKSpriteNode(texture: gemTexture)
-            gemItem.position = CGPoint(x:0, y: gem_y)
-            
-            gemItem.physicsBody = SKPhysicsBody(rectangleOf: gemTexture.size())
-            gemItem.physicsBody?.categoryBitMask = self.gemCategory
-            // 衝突の時に動かないように設定する
-            gemItem.physicsBody?.isDynamic = false
-            gem.addChild(gemItem)
             
             // 下側の壁を作成
             let under = SKSpriteNode(texture: wallTexture)
@@ -231,7 +219,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: upper.size.width, height: self.frame.size.height))
             scoreNode.physicsBody?.isDynamic = false
             scoreNode.physicsBody?.categoryBitMask = self.scoreCategory
-            scoreNode.physicsBody?.categoryBitMask = self.gemCategory
             scoreNode.physicsBody?.contactTestBitMask = self.birdCategory
             
             wall.addChild(scoreNode)
@@ -342,6 +329,64 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         bird.speed = 1
         scrollNode.speed = 1
+    }
+    
+    func setupGem() {
+        //アイテム作成のためのコード
+        let gemTexture = SKTexture(imageNamed: "gem")
+        let gemSize = SKTexture(imageNamed: "gem").size()
+        // 移動する距離を計算
+        let movingDistance = CGFloat(self.frame.size.width + gemTexture.size().width)
+        // 画面外まで移動するアクションを作成
+        let moveGem = SKAction.moveBy(x: -movingDistance, y: 0, duration: 4)
+        // 自身を取り除くアクションを作成
+        let removeGem = SKAction.removeFromParent()
+        // 2つのアニメーションを順に実行するアクションを作成
+        let gemAnimation = SKAction.sequence([moveGem, removeGem])
+        // 鳥の画像サイズを取得
+        let birdSize = SKTexture(imageNamed: "bird_a").size()
+        // 隙間位置の上下の振れ幅を鳥のサイズの6倍とする
+        let random_y_range = birdSize.height * 6
+        
+//        let gem_length = birdSize.height
+        
+        let createGemAnimation = SKAction.run({
+            //アイテム関連のノードを乗せるノードを作成
+            let gem = SKNode()
+            gem.position = CGPoint(x: self.frame.size.width + gemTexture.size().width / 2, y: 0)
+            gem.zPosition = -10 // 雲より手前、地面より奥
+            
+            let random_y = CGFloat.random(in: 0..<random_y_range)
+            
+            let gemItem = SKSpriteNode(texture: gemTexture)
+            gemItem.position = CGPoint(x:0, y: random_y)
+            
+            gemItem.physicsBody = SKPhysicsBody(rectangleOf: gemTexture.size())
+            gemItem.physicsBody?.categoryBitMask = self.gemCategory
+            // 衝突の時に動かないように設定する
+            gemItem.physicsBody?.isDynamic = false
+            gem.addChild(gemItem)
+            
+            let scoreNode = SKNode()
+            scoreNode.position = CGPoint(x: gemItem.size.width + birdSize.width / 2, y: self.frame.height / 2)
+            scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: gemItem.size.width, height: self.frame.size.height))
+            scoreNode.physicsBody?.isDynamic = false
+            scoreNode.physicsBody?.categoryBitMask = self.gemCategory
+            scoreNode.physicsBody?.contactTestBitMask = self.birdCategory
+            
+            gem.addChild(scoreNode)
+            
+            gem.run(gemAnimation)
+            
+            self.wallNode.addChild(gem)
+
+        })
+        let waitFirstAnimation = SKAction.wait(forDuration: 1)
+        let waitAnimation = SKAction.wait(forDuration: 4)
+        // 壁を作成->時間待ち->壁を作成を無限に繰り返すアクションを作成
+        let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createGemAnimation, waitAnimation]))
+        gemNode.run(waitFirstAnimation)
+        gemNode.run(repeatForeverAnimation)
     }
     
 }
