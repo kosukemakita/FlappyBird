@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let birdCategory: UInt32 = 1 << 0       // 0...00001
     let groundCategory: UInt32 = 1 << 1     // 0...00010
     let wallCategory: UInt32 = 1 << 2       // 0...00100
-    let gemCategory: UInt32 = 1 << 2       // 0...00100
+    let gemCategory: UInt32 = 1 << 3       // 0...01000
     let scoreCategory: UInt32 = 1 << 3      // 0...01000
     
     // スコア用
@@ -291,15 +291,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // スコア用の物体と衝突した
             print("ScoreUp")
             score += 1
-//            print(score)
-            // ベストスコア更新か確認する --- ここから ---
+             scoreLabelNode.text = "Score:\(score)" 
+            //            print(score)
+            // ベストスコア更新か確認する
             var bestScore = userDefaults.integer(forKey: "BEST")
             if score > bestScore {
                 bestScore = score
                 userDefaults.set(bestScore, forKey: "BEST")
                 userDefaults.synchronize()
-            } // --- ここまで追加---
-        } else {
+            }
+        }
+        if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory || (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
+            // スコア用の物体と衝突した
+            print("Item!")
+            score += 1
+//                        print(score)
+            // ベストスコア更新か確認する
+            var bestScore = userDefaults.integer(forKey: "BEST")
+            if score > bestScore {
+                bestScore = score
+                userDefaults.set(bestScore, forKey: "BEST")
+                userDefaults.synchronize()
+            }
+        }
+            
+        else {
             // 壁か地面と衝突した
             print("GameOver")
             
@@ -346,9 +362,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // 鳥の画像サイズを取得
         let birdSize = SKTexture(imageNamed: "bird_a").size()
         // 隙間位置の上下の振れ幅を鳥のサイズの6倍とする
-        let random_y_range = birdSize.height * 6
+        let random_y_range = birdSize.height * 4
         
-//        let gem_length = birdSize.height
+        let wallTexture = SKTexture(imageNamed: "wall")
+        wallTexture.filteringMode = .linear
+        let slit_length = birdSize.height * 3
+        let groundSize = SKTexture(imageNamed: "ground").size()
+        let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
+        let gem_lowest_y = center_y - slit_length / 2 - wallTexture.size().height / 2 - random_y_range / 2
+        
+        //        let gem_length = birdSize.height
         
         let createGemAnimation = SKAction.run({
             //アイテム関連のノードを乗せるノードを作成
@@ -357,9 +380,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gem.zPosition = -10 // 雲より手前、地面より奥
             
             let random_y = CGFloat.random(in: 0..<random_y_range)
-            
+            let gem_y = gem_lowest_y + random_y + center_y / 2
             let gemItem = SKSpriteNode(texture: gemTexture)
-            gemItem.position = CGPoint(x:0, y: random_y)
+            gemItem.position = CGPoint(x:0, y: gem_y)
             
             gemItem.physicsBody = SKPhysicsBody(rectangleOf: gemTexture.size())
             gemItem.physicsBody?.categoryBitMask = self.gemCategory
@@ -379,14 +402,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gem.run(gemAnimation)
             
             self.wallNode.addChild(gem)
-
+            
         })
         let waitFirstAnimation = SKAction.wait(forDuration: 1)
         let waitAnimation = SKAction.wait(forDuration: 4)
         // 壁を作成->時間待ち->壁を作成を無限に繰り返すアクションを作成
         let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createGemAnimation, waitAnimation]))
-        gemNode.run(waitFirstAnimation)
-        gemNode.run(repeatForeverAnimation)
+        //        let repeatWaitAndGemAnimation = SKAction.(SKAction.sequence([waitFirstAnimation, repeatForeverAnimation]))
+        gemNode.run(SKAction.sequence([waitFirstAnimation, repeatForeverAnimation]))
     }
     
 }
