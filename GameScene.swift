@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let birdCategory: UInt32 = 1 << 0       // 0...00001
     let groundCategory: UInt32 = 1 << 1     // 0...00010
     let wallCategory: UInt32 = 1 << 2       // 0...00100
-    let gemCategory: UInt32 = 1 << 3       // 0...01000
+    let gemCategory: UInt32 = 1 << 4       // 0...10000
     let scoreCategory: UInt32 = 1 << 3      // 0...01000
     
     // スコア用
@@ -301,10 +301,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 userDefaults.synchronize()
             }
         }
-        if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory || (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
+        else if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory || (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
             // スコア用の物体と衝突した
             print("Item!")
             score += 1
+            scoreLabelNode.text = "Score:\(score)" 
 //                        print(score)
             // ベストスコア更新か確認する
             var bestScore = userDefaults.integer(forKey: "BEST")
