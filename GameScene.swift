@@ -25,8 +25,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // スコア用
     var score = 0
+    var itemScore = 0
+    var totalScore = 0
     var scoreLabelNode:SKLabelNode!
     var bestScoreLabelNode:SKLabelNode!
+    var itemScoreLabelNode:SKLabelNode!
     let userDefaults:UserDefaults = UserDefaults.standard
     
     // SKView上にシーンが表示されたときに呼ばれるメソッド
@@ -70,9 +73,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabelNode.text = "Score:\(score)"
         self.addChild(scoreLabelNode)
         
+        score = 0
+        itemScoreLabelNode = SKLabelNode()
+        itemScoreLabelNode.fontColor = UIColor.black
+        itemScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 90)
+        itemScoreLabelNode.zPosition = 100 // 一番手前に表示する
+        itemScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        itemScoreLabelNode.text = "Item:\(itemScore)"
+        self.addChild(itemScoreLabelNode)
+        
         bestScoreLabelNode = SKLabelNode()
         bestScoreLabelNode.fontColor = UIColor.black
-        bestScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 90)
+        bestScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 120)
         bestScoreLabelNode.zPosition = 100 // 一番手前に表示する
         bestScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         
@@ -282,7 +294,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // SKPhysicsContactDelegateのメソッド。衝突したときに呼ばれる
     func didBegin(_ contact: SKPhysicsContact) {
+        let gem = SKNode()
+//        let gemTexture = SKTexture(imageNamed: "gem")
+//        let gemSize = SKTexture(imageNamed: "gem").size()
+//        // 移動する距離を計算
+//        let movingDistance = CGFloat(self.frame.size.width + gemTexture.size().width)
+//        // 画面外まで移動するアクションを作成
+//        let moveGem = SKAction.moveBy(x: -movingDistance, y: 0, duration: 4)
+//        // 自身を取り除くアクションを作成
+        let removeGem = SKAction.removeFromParent()
+        let mySoundAction: SKAction = SKAction.playSoundFileNamed("carstop", waitForCompletion: true)
         // ゲームオーバーのときは何もしない
+        var totalScore = score + itemScore
         if scrollNode.speed <= 0 {
             return
         }
@@ -291,12 +314,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // スコア用の物体と衝突した
             print("ScoreUp")
             score += 1
-             scoreLabelNode.text = "Score:\(score)" 
+//            totalScore = score + itemScore
+            scoreLabelNode.text = "Score:\(score)"
             //            print(score)
             // ベストスコア更新か確認する
             var bestScore = userDefaults.integer(forKey: "BEST")
-            if score > bestScore {
-                bestScore = score
+            if totalScore > bestScore {
+                bestScore = totalScore
                 userDefaults.set(bestScore, forKey: "BEST")
                 userDefaults.synchronize()
             }
@@ -304,13 +328,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory || (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
             // スコア用の物体と衝突した
             print("Item!")
-            score += 1
-            scoreLabelNode.text = "Score:\(score)" 
-//                        print(score)
+            itemScore += 1
+            self.run(mySoundAction);
+//            totalScore = score + itemScore
+            gem.run(removeGem)
+//            gem.removeFromParent()
+            itemScoreLabelNode.text = "Item:\(itemScore)"
+            //                        print(score)
             // ベストスコア更新か確認する
             var bestScore = userDefaults.integer(forKey: "BEST")
-            if score > bestScore {
-                bestScore = score
+            if totalScore > bestScore {
+                bestScore = totalScore
                 userDefaults.set(bestScore, forKey: "BEST")
                 userDefaults.synchronize()
             }
@@ -335,7 +363,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //リスタートをするためのメソッド
     func restart() {
         score = 0
+        itemScore = 0
         scoreLabelNode.text = "Score:\(score)"
+        itemScoreLabelNode.text = "Item:\(score)"
         
         bird.position = CGPoint(x: self.frame.size.width * 0.2, y:self.frame.size.height * 0.7)
         bird.physicsBody?.velocity = CGVector.zero
@@ -377,7 +407,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let createGemAnimation = SKAction.run({
             //アイテム関連のノードを乗せるノードを作成
             let gem = SKNode()
-            gem.position = CGPoint(x: self.frame.size.width + gemTexture.size().width / 2, y: 0)
+            gem.position = CGPoint(x: self.frame.size.width, y: 0)
             gem.zPosition = -10 // 雲より手前、地面より奥
             
             let random_y = CGFloat.random(in: 0..<random_y_range)
@@ -402,7 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             gem.run(gemAnimation)
             
-            self.wallNode.addChild(gem)
+            self.gemNode.addChild(gem)
             
         })
         let waitFirstAnimation = SKAction.wait(forDuration: 1)
