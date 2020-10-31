@@ -271,7 +271,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // 衝突のカテゴリー設定
         bird.physicsBody?.categoryBitMask = birdCategory
         bird.physicsBody?.collisionBitMask = groundCategory | wallCategory
-        bird.physicsBody?.contactTestBitMask = groundCategory | wallCategory
+        bird.physicsBody?.contactTestBitMask = groundCategory | wallCategory | gemCategory
         
         // アニメーションを設定
         bird.run(flap)
@@ -330,7 +330,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("Item!")
             itemScore += 1
             self.run(mySoundAction)
-//              
+//
                 if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory {
                     contact.bodyA.node?.removeFromParent()
                 } else if (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
