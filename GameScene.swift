@@ -295,15 +295,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // SKPhysicsContactDelegateのメソッド。衝突したときに呼ばれる
     func didBegin(_ contact: SKPhysicsContact) {
         let gem = SKNode()
-//        let gemTexture = SKTexture(imageNamed: "gem")
-//        let gemSize = SKTexture(imageNamed: "gem").size()
-//        // 移動する距離を計算
-//        let movingDistance = CGFloat(self.frame.size.width + gemTexture.size().width)
-//        // 画面外まで移動するアクションを作成
-//        let moveGem = SKAction.moveBy(x: -movingDistance, y: 0, duration: 4)
-//        // 自身を取り除くアクションを作成
+        //        let gemTexture = SKTexture(imageNamed: "gem")
+        //        let gemSize = SKTexture(imageNamed: "gem").size()
+        //        // 移動する距離を計算
+        //        let movingDistance = CGFloat(self.frame.size.width + gemTexture.size().width)
+        //        // 画面外まで移動するアクションを作成
+        //        let moveGem = SKAction.moveBy(x: -movingDistance, y: 0, duration: 4)
+        //        // 自身を取り除くアクションを作成
         let removeGem = SKAction.removeFromParent()
-        let mySoundAction: SKAction = SKAction.playSoundFileNamed("carstop", waitForCompletion: true)
+        let mySoundAction: SKAction = SKAction.playSoundFileNamed("carstop.wav", waitForCompletion: true)
         // ゲームオーバーのときは何もしない
         var totalScore = score + itemScore
         if scrollNode.speed <= 0 {
@@ -314,7 +314,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // スコア用の物体と衝突した
             print("ScoreUp")
             score += 1
-//            totalScore = score + itemScore
+            //            totalScore = score + itemScore
             scoreLabelNode.text = "Score:\(score)"
             //            print(score)
             // ベストスコア更新か確認する
@@ -329,10 +329,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // スコア用の物体と衝突した
             print("Item!")
             itemScore += 1
-            self.run(mySoundAction);
-//            totalScore = score + itemScore
-            gem.run(removeGem)
-//            gem.removeFromParent()
+            self.run(mySoundAction)
+//              
+                if (contact.bodyA.categoryBitMask & gemCategory) == gemCategory {
+                    contact.bodyA.node?.removeFromParent()
+                } else if (contact.bodyB.categoryBitMask & gemCategory) == gemCategory {
+                    contact.bodyB.node?.removeFromParent()
+                }
+            //            totalScore = score + itemScore
+            //            gem.removeFromParent()
             itemScoreLabelNode.text = "Item:\(itemScore)"
             //                        print(score)
             // ベストスコア更新か確認する

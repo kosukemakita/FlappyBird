@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		653BB0D325454ABF00A2AB2D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653BB0D225454ABF00A2AB2D /* GameScene.swift */; };
+		65452988254D3C1000E996C7 /* carstop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 65452987254D3C1000E996C7 /* carstop.wav */; };
 		654DF7F8254457480086128D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7F7254457480086128D /* AppDelegate.swift */; };
 		654DF7FA254457480086128D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7F9254457480086128D /* SceneDelegate.swift */; };
 		654DF7FC254457480086128D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654DF7FB254457480086128D /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		653BB0D225454ABF00A2AB2D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = ../GameScene.swift; sourceTree = "<group>"; };
+		65452987254D3C1000E996C7 /* carstop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = carstop.wav; sourceTree = "<group>"; };
 		654DF7F4254457480086128D /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		654DF7F7254457480086128D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		654DF7F9254457480086128D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				653BB0D225454ABF00A2AB2D /* GameScene.swift */,
 				654DF7FB254457480086128D /* ViewController.swift */,
 				654DF7FD254457480086128D /* Main.storyboard */,
+				65452987254D3C1000E996C7 /* carstop.wav */,
 				654DF8002544574D0086128D /* Assets.xcassets */,
 				654DF8022544574D0086128D /* LaunchScreen.storyboard */,
 				654DF8052544574D0086128D /* Info.plist */,
@@ -131,6 +134,7 @@
 				654DF8042544574D0086128D /* LaunchScreen.storyboard in Resources */,
 				654DF8012544574D0086128D /* Assets.xcassets in Resources */,
 				654DF7FF254457480086128D /* Main.storyboard in Resources */,
+				65452988254D3C1000E996C7 /* carstop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
